@@ -18,7 +18,27 @@
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6"
+    "@babel/core": "^7.18.6",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-native": "^4.0.0",
+    "prettier": "^2.7.1"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "extends": [
+      "react",
+      "react-native",
+      "prettier"
+    ],
+    "env": {
+      "react-native/react-native": true
+    }
   },
   "private": true
 }
