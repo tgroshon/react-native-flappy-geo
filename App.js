@@ -16,15 +16,15 @@ const getRandom = (min, max) => {
 };
 
 const getPipeSizePosPair = (addToPosX = 0, gap = 200) => {
-  let yPosTop = -getRandom(300, windowHeight - 100);
+  let yPosTop = -getRandom(300, windowHeight - 200);
 
   const pipeTop = {
     pos: { x: windowWidth + addToPosX, y: yPosTop },
-    size: { height: windowHeight * 2, width: 75 },
+    size: { height: windowHeight * 2, width: 70 },
   };
   const pipeBottom = {
     pos: { x: windowWidth + addToPosX, y: windowHeight * 2 + gap + yPosTop },
-    size: { height: windowHeight * 2, width: 75 },
+    size: { height: windowHeight * 2, width: 70 },
   };
 
   return { pipeTop, pipeBottom };
@@ -33,17 +33,17 @@ const getPipeSizePosPair = (addToPosX = 0, gap = 200) => {
 const DIFFICULTY = {
   EASY: {
     label: "easy",
-    jumpHeight: -6,
+    jumpHeight: -5,
     gap: 200,
   },
   MEDIUM: {
     label: "medium",
-    jumpHeight: -6,
+    jumpHeight: -5,
     gap: 150,
   },
   HARD: {
     label: "hard",
-    jumpHeight: -6,
+    jumpHeight: -5,
     gap: 100,
   },
 };
@@ -124,7 +124,7 @@ export default function App() {
               backgroundColor: "white",
             }}
           >
-            Hi HARD
+            Hi Freddies!
           </Text>
           <TouchableOpacity
             style={{
@@ -143,29 +143,43 @@ export default function App() {
               START GAME
             </Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: "white",
-              fontSize: 30,
-              backgroundColor: "black",
-              padding: 5,
-            }}
-          >
-            High Score: None
-          </Text>
+          <Leaderboard />
         </View>
       ) : null}
     </View>
   );
 }
 
+const Leaderboard = () => {
+  const leaders = [
+    ["Mathias & Colt & Piper", 3], // 1st grade
+    // ["Zac*", 9], // 3rd grade
+    // ["Mason & O. Stryker", 8], // 3rd grade
+    // ["Ryan", 7], // 5th grade
+  ];
+
+  return leaders.map(([name, score], i) => (
+    <Text
+      key={name}
+      style={{
+        fontWeight: "bold",
+        color: "white",
+        fontSize: 30,
+        backgroundColor: "black",
+        padding: 5,
+      }}
+    >
+      {i === 0 ? "High" : ""} Score: {name} ({score})
+    </Text>
+  ));
+};
+
 const entities = (difficulty) => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
 
-  world.gravity.y = 0.4;
+  world.gravity.y = 0.5;
 
   const pipeSizePosA = getPipeSizePosPair(0, difficulty.gap);
   const pipeSizePosB = getPipeSizePosPair(windowWidth * 0.9, difficulty.gap);
